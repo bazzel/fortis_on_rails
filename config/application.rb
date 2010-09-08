@@ -38,5 +38,10 @@ module FortisOnRails
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    # Configure generators values. Many other options are available, be sure to check the documentation.  
+    config.generators do |g|  
+      g.template_engine :haml  
+    end
   end
 end

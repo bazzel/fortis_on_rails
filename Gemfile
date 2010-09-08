@@ -29,3 +29,8 @@ gem 'mysql2'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+group :development do
+  gem 'haml-rails',         '0.2' # Haml-rails provides Haml generators for Rails 3.
+  # gem 'rails3-generators',  '0.13.0' # Rails 3 compatible generators for DataMapper, Factory-girl, etc.
+end
