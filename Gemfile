@@ -37,7 +37,8 @@ group :development do
 end
 
 group :test, :development do
-  # gem 'factory_girl', '1.3.2'
+  # gem 'capybara', '0.3.9'
   gem 'factory_girl_rails', '1.0'
-  gem 'rspec-rails', '>= 2.0.0.beta.20'
+  gem 'rspec-rails',        '>= 2.0.0.beta.20'
+  # gem 'webrat', '0.7.1'
 end
