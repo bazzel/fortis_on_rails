@@ -36,8 +36,10 @@ gem 'compass-susy-plugin', '0.8.0' # Responsive web design with grids the quick 
 
 group :development do
   gem 'haml-rails',         '0.2' # Haml-rails provides Haml generators for Rails 3.
+  gem 'hpricot',            '0.8.2' # Needed to run html2haml
   gem 'rails3-generators',  '0.13.0' # Rails 3 compatible generators for DataMapper, Factory-girl, etc.
   gem 'ruby-graphviz',      '0.9.17' # For running 'bundle viz'
+  gem 'ruby_parser' 
 end
 
 group :test, :development do
