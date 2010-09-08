@@ -7,6 +7,10 @@ gem 'rails',  '3.0.0'
 
 gem 'haml',   '3.0.18'
 gem 'mysql2'
+gem 'compass-susy-plugin', '0.8.0' # Responsive web design with grids the quick and reliable way
+                                   # To susy-fy your project, run:
+                                   # compass init rails -r susy -u susy --sass-dir=app/stylesheets --css-dir=public/stylesheets/compiled
+                                   # from the command-line.
 
 # Use unicorn as the web server
 # gem 'unicorn'
