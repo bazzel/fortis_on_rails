@@ -1,0 +1,16 @@
+%p
+  %b Period start:
+  = @upload.period_start
+%p
+  %b Period end:
+  = @upload.period_end
+%p
+  %b Balance start:
+  = @upload.balance_start
+%p
+  %b Balance end:
+  = @upload.balance_end
+
+= link_to 'Edit', edit_upload_path(@upload)
+\|
+= link_to 'Back', uploads_path
