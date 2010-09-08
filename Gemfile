@@ -33,4 +33,9 @@ gem 'mysql2'
 group :development do
   gem 'haml-rails',         '0.2' # Haml-rails provides Haml generators for Rails 3.
   # gem 'rails3-generators',  '0.13.0' # Rails 3 compatible generators for DataMapper, Factory-girl, etc.
+  gem 'ruby-graphviz',      '0.9.17' # For running 'bundle viz'
+end
+
+group :test, :development do
+  gem "rspec-rails", ">= 2.0.0.beta.20"
 end

@@ -41,7 +41,8 @@ module FortisOnRails
     
     # Configure generators values. Many other options are available, be sure to check the documentation.  
     config.generators do |g|  
-      g.template_engine :haml  
+      g.template_engine :haml
+      g.test_framework  :rspec
     end
   end
 end
