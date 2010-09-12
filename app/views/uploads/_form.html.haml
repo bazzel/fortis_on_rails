@@ -1,22 +1,7 @@
-= form_for @upload do |f|
-  -if @upload.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@upload.errors.count, "error")} prohibited this upload from being saved:"
-      %ul
-        - @upload.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :period_start
-    = f.date_select :period_start
-  .field
-    = f.label :period_end
-    = f.date_select :period_end
-  .field
-    = f.label :balance_start
-    = f.text_field :balance_start
-  .field
-    = f.label :balance_end
-    = f.text_field :balance_end
-  .actions
-    = f.submit 'Save'
+= semantic_form_for(@upload, :html => {:multipart => true}) do |f|
+  = f.inputs do
+    = f.input :csv
+  
+  = f.buttons do
+    = f.commit_button
+    %li= link_to 'Back', uploads_path

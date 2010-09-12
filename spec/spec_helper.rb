@@ -2,6 +2,8 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'remarkable/active_record'
+require "paperclip/matchers"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -23,4 +25,11 @@ RSpec.configure do |config|
   # examples within a transaction, comment the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  
+  config.include Paperclip::Shoulda::Matchers
+  
+  config.after(:all) do
+    # Cleanup tmp dir.
+    FileUtils.rm_rf "#{Rails.root}/tmp/system"
+  end
 end

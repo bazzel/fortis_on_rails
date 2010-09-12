@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100908174410) do
+ActiveRecord::Schema.define(:version => 20100911090331) do
 
   create_table "posts", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,10 @@ ActiveRecord::Schema.define(:version => 20100908174410) do
     t.integer  "balance_end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "csv_file_name"
+    t.string   "csv_content_type"
+    t.integer  "csv_file_size"
+    t.datetime "csv_updated_at"
   end
 
 end

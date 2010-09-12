@@ -5,13 +5,15 @@ gem 'rails',  '3.0.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'flutie', '1.0.4' # Basic, default styles for rails applications
-gem 'haml',   '3.0.18'
+gem 'compass-susy-plugin',  '0.8.0' # Responsive web design with grids the quick and reliable way
+                                    # To susy-fy your project, run:
+                                    # compass init rails -r susy -u susy --sass-dir=app/stylesheets --css-dir=public/stylesheets/compiled
+                                    # from the command-line.
+gem 'flutie',               '1.0.4' # Basic, default styles for rails applications
+gem 'formtastic',           '1.1.0'
+gem 'haml',                 '3.0.18'
 gem 'mysql2'
-gem 'compass-susy-plugin', '0.8.0' # Responsive web design with grids the quick and reliable way
-                                   # To susy-fy your project, run:
-                                   # compass init rails -r susy -u susy --sass-dir=app/stylesheets --css-dir=public/stylesheets/compiled
-                                   # from the command-line.
+gem 'paperclip',            '2.3.3'                                    
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -46,7 +48,9 @@ end
 
 group :test, :development do
   # gem 'capybara', '0.3.9'
-  gem 'factory_girl_rails', '1.0'
-  gem 'rspec-rails',        '>= 2.0.0.beta.20'
+  gem 'factory_girl_rails',       '1.0'
+  gem 'remarkable_activerecord',   '>=4.0.0.alpha4' #, :require => nil
+  # gem 'remarkable_rails',         '3.1.13', :require => nil
+  gem 'rspec-rails',              '>= 2.0.0.beta.20'
   # gem 'webrat', '0.7.1'
 end
