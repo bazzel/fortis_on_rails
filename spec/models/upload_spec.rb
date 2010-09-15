@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Upload do
+  describe "associations" do
+    it { should belong_to(:bank_account) }
+    it { should have_many(:upload_details, :dependent => :destroy) }
+  end
   describe "validations" do
     it { Factory(:upload);should validate_uniqueness_of(:csv_file_name) }
     it "allow_values_for" do
@@ -66,5 +70,82 @@ describe Upload do
     
   end
   
+  describe "bankaccount" do
+    it "should create a new bankaccount if account number is not recognized" do
+      lambda {
+        Factory(:upload)
+      }.should change(BankAccount, :count).by(1)
+    end
+    
+    it "should not create a new bankaccount if accountnumber is recognized" do
+      Factory(:bank_account, :account_number => '861887719')
+      lambda {
+        Factory(:upload)
+      }.should_not change(BankAccount, :count)
+    end
+    
+    it "should assign bankaccount to upload object" do
+      bank_account = Factory(:bank_account, :account_number => '861887719')
+      upload = Factory(:upload)
+
+      upload.bank_account.should eql(bank_account)
+    end
+    
+  end
   
+  describe "predecessor" do
+    before(:each) do
+      @previous = Factory(:upload, :csv => File.open(Rails.root + 'tmp/861887719EURMutaties20100101-20100131.CSV', 'w+'))
+      @current = Factory(:upload, :csv => File.open(Rails.root + 'tmp/861887719EURMutaties20100201-20100128.CSV', 'w+'))
+    end
+
+    it "should return previous Upload for same bankaccount" do
+      Upload.predecessor(@current).should eql(@previous)
+    end
+    
+    it "should have a precedessor attribute as well :)" do
+      @current.predecessor.should eql(@previous)
+    end
+  end
+  
+  describe "total amount" do
+    it "should return total amount of transactions" do
+      Factory(:upload).upload_details.total_cents.should eql(-41993)
+    end
+  end
+  
+  describe "upload_details" do
+    it "should create an upload_detail for every row in the uploaded file" do
+      upload = Factory.build(:upload)
+      lambda {
+        upload.save
+      }.should change(upload.upload_details, :size).by(3)
+    end
+  end
+  
+  describe "balance_start" do
+    it "should be equal to 0 when uploading the first file" do
+      Factory(:upload).balance_start.should eql(0)
+    end
+
+    it "should be equal to balance_end of predecessor" do
+      upload = Factory.build(:upload)
+      upload.stub(:predecessor).and_return(mock('Predecessor', :balance_end => 25000))
+      upload.save
+      upload.balance_start.should eql(25000)
+    end
+  end
+  
+  describe "balance_end" do
+    it "should be equal to the total amount of the uploaded file when uploading the first file" do
+      Factory(:upload).balance_end.should eql(-41993)
+    end
+
+    it "should be equal to balance_start plus the total amount of the uploaded file" do
+      upload = Factory.build(:upload)
+      upload.stub(:predecessor).and_return(mock('Predecessor', :balance_end => 25000))
+      upload.save
+      upload.balance_end.should eql(-16993)
+    end
+  end
 end

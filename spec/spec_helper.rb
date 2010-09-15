@@ -31,5 +31,6 @@ RSpec.configure do |config|
   config.after(:all) do
     # Cleanup tmp dir.
     FileUtils.rm_rf "#{Rails.root}/tmp/system"
+    FileUtils.rm Dir.glob("#{Rails.root}/tmp/*.*")
   end
 end

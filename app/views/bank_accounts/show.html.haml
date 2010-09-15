@@ -1,0 +1,10 @@
+%p
+  %b Account number:
+  = @bank_account.account_number
+%p
+  %b Description:
+  = @bank_account.description
+
+= link_to 'Edit', edit_bank_account_path(@bank_account)
+\|
+= link_to 'Back', bank_accounts_path

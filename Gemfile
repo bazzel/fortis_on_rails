@@ -9,6 +9,7 @@ gem 'compass-susy-plugin',  '0.8.0' # Responsive web design with grids the quick
                                     # To susy-fy your project, run:
                                     # compass init rails -r susy -u susy --sass-dir=app/stylesheets --css-dir=public/stylesheets/compiled
                                     # from the command-line.
+gem 'fastercsv',            '1.5.3'
 gem 'flutie',               '1.0.4' # Basic, default styles for rails applications
 gem 'formtastic',           '1.1.0'
 gem 'haml',                 '3.0.18'

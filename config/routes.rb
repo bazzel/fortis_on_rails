@@ -1,4 +1,6 @@
 FortisOnRails::Application.routes.draw do
+  resources :bank_accounts
+
   resources :uploads
 
   # The priority is based upon order of creation:
