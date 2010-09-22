@@ -38,14 +38,6 @@ class Upload < ActiveRecord::Base
     self.class.predecessor(self)
   end
   
-  def balance_start
-    predecessor.try(:balance_end) || 0
-  end
-  
-  def balance_end
-    balance_start + upload_details.total_cents
-  end
-  
   # === Class Methods
   class << self
     # Find and return previous Upload for same BankAccount with an period_end
@@ -77,17 +69,24 @@ class Upload < ActiveRecord::Base
   end
 
   def create_upload_details
-    options = {
-      :col_sep           => ';', 
-      :headers           => true, 
-      :skip_blanks       => true, 
-      :header_converters => :symbol
-    }
+    # We only want to process the CSV file once.
+    if upload_details.empty?
+      options = {
+        :col_sep           => ';', 
+        :headers           => true, 
+        :skip_blanks       => true, 
+        :header_converters => :symbol
+      }
 
-    FasterCSV.foreach(csv.path, options) do |row|
-      upload_details.create row.to_hash
-    end
+      FasterCSV.foreach(csv.path, options) do |row|
+        upload_details.build row.to_hash
+      end
     
+      self.balance_start = predecessor.try(:balance_end) || 0
+      self.balance_end = balance_start + upload_details.total_cents
+    
+      save
+    end
   end
   
 end
